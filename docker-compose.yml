@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------------------
+  # LiveKit Server (self-hosted) – WebRTC SFU
+  # ---------------------------------------------------------------------------
+  # livekit-server:
+  #   image: livekit/livekit-server:latest
+  #   container_name: livekit-server
+  #   command: --config /etc/livekit.yaml --dev
+  #   ports:
+  #     - "7880:7880"   # HTTP / WebSocket
+  #     - "7881:7881"   # RTC (TCP)
+  #     - "7882:7882/udp" # RTC (UDP)
+  #   volumes:
+  #     - ./config/livekit.yaml:/etc/livekit.yaml:ro
+  #   restart: unless-stopped
+  #   networks:
+  #     - livekit-net
+
+  # ---------------------------------------------------------------------------
+  # LiveKit Agent – Voice AI assistant
+  # ---------------------------------------------------------------------------
+  livekit-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: livekit-agent
+    env_file:
+      - .env.local
+    environment:
+#      - LIVEKIT_URL=ws://livekit-server:7880
+#      - LIVEKIT_API_KEY=devkey
+#      - LIVEKIT_API_SECRET=secret
+#      - LIVEKIT_URL=wss://teste-scderq1v.livekit.cloud
+#      - LIVEKIT_API_KEY=APIsyUL2ApBa3ER
+#      - LIVEKIT_API_SECRET=mYr9Teq4CiLPPcG8Wnkspnz4mfNmgEFtovfkpqzXoN2A
+
+    # depends_on:
+    #   - livekit-server
+    volumes:
+      - hf-cache:/root/.cache/huggingface
+      - ./transcripts:/app/transcripts
+    restart: unless-stopped
+    # networks:
+    #   - livekit-net
+
+volumes:
+  hf-cache:
+
+# networks:
+#   livekit-net:
+#     driver: bridge
