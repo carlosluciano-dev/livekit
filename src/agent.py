@@ -37,6 +37,7 @@ DEFAULT_INSTRUCTIONS = (
 
 LANG_HINTS = {
     "pt-BR": "Responda sempre em português do Brasil.",
+    "es-AR": "Respondé siempre en español rioplatense (Argentina).",
     "es-419": "Responde siempre en español latinoamericano.",
     "es-ES": "Responde siempre en español de España.",
     "en-US": "Always respond in English.",
